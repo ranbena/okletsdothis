@@ -19,3 +19,12 @@ export type YoutubeAPIPlaylistItem = {
     };
   };
 };
+
+export type YoutubeAPIPlaylistResponse = {
+  nextPageToken: string;
+  items: YoutubeAPIPlaylistItem[];
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
+};

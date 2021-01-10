@@ -1,6 +1,5 @@
 import Router from 'next/router';
 import { FormEventHandler, useState } from 'react';
-import Search from '../components/Search';
 
 const extractPlaylistId = (url: string): { playlistId?: string; error?: string } => {
   if (!url.trim()) {

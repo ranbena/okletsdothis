@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { YoutubeAPIPlaylistItem } from '../../services/youtube/types';
+import { YoutubeAPIPlaylistItem } from 'services/youtube/types';
 
 interface IProps {
   items: YoutubeAPIPlaylistItem[];
