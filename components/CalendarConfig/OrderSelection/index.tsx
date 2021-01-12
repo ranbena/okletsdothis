@@ -5,7 +5,7 @@ const format = 'HH:mm';
 
 interface IProps {
   value: boolean;
-  onChange: (ordered: boolean) => void;
+  onChange: (value: boolean) => void;
 }
 
 const Component: FC<IProps> = ({ value, onChange }) => {

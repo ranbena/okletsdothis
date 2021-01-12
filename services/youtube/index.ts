@@ -13,3 +13,11 @@ export const getPlaylistItems = (playlistId: string): Promise<YoutubeAPIPlaylist
       return data.items as YoutubeAPIPlaylistItem[];
     });
 };
+
+export const getVideoUrl = (id: string, playlistId?: string) => {
+  const url = new URL('https://www.youtube.com/watch');
+  url.searchParams.append('v', id);
+  playlistId && url.searchParams.append('list', playlistId);
+
+  return url.href;
+};

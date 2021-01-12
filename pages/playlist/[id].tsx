@@ -7,17 +7,18 @@ import Calendar from 'components/Calendar';
 
 import { getPlaylistItems } from 'services/youtube';
 import { YoutubeAPIPlaylistItem } from 'services/youtube/types';
-import { CalendarConfigType, CalendarEvent } from 'components/CalendarConfig/types';
+import { CalendarEvent } from 'components/CalendarConfig/types';
 
 interface IProps {
+  playlistId: string;
   items: YoutubeAPIPlaylistItem[];
 }
 
-const Page: FC<IProps> = ({ items }) => {
+const Page: FC<IProps> = ({ playlistId, items }) => {
   return (
     <div>
       <PlaylistItems items={items} />
-      <CalendarConfig items={items}>
+      <CalendarConfig playlistId={playlistId} items={items}>
         {(events: CalendarEvent[]) => <Calendar events={events} />}
       </CalendarConfig>
     </div>
@@ -42,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   return {
-    props: { items },
+    props: { playlistId, items },
   };
 };
 

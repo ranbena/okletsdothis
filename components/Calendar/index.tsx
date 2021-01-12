@@ -9,8 +9,10 @@ interface IProps {
 const Component: FC<IProps> = ({ events }) => (
   <>
     <div>
-      {events.map(({ title }) => (
-        <div>{title}</div>
+      {events.map(({ title, startDate }) => (
+        <div key={title}>
+          {startDate.toString()} {title}
+        </div>
       ))}
     </div>
     <Calendar />

@@ -1,25 +1,27 @@
 import { FC } from 'react';
-import { Days } from '../types';
+import { Weekday, RRule, WeekdayStr } from 'rrule';
 
-const allDays: Days[] = [0, 1, 2, 3, 4, 5, 6];
+const { SU, MO, TU, WE, TH, FR, SA } = RRule;
 
-const dayNames: Record<Days, string> = {
-  0: 'Sun',
-  1: 'Mon',
-  2: 'Tue',
-  3: 'Wed',
-  4: 'Thu',
-  5: 'Fri',
-  6: 'Sat',
+const ALL_WEEKDAYS: WeekdayStr[] = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+
+const dayNames: Record<WeekdayStr, string> = {
+  SU: 'Sun',
+  MO: 'Mon',
+  TU: 'Tue',
+  WE: 'Wed',
+  TH: 'Thu',
+  FR: 'Fri',
+  SA: 'Sat',
 };
 
 interface IProps {
-  value: Days[];
-  onChange: (days: Days[]) => void;
+  value: Weekday[];
+  onChange: (value: Weekday[]) => void;
 }
 
 const Component: FC<IProps> = ({ value: selectedDays, onChange }) => {
-  const _onChange = (day: Days, value: boolean) => {
+  const _onChange = (day: Weekday, value: boolean) => {
     const days = [...selectedDays];
     if (value) {
       // add
@@ -36,14 +38,14 @@ const Component: FC<IProps> = ({ value: selectedDays, onChange }) => {
 
   return (
     <span>
-      {allDays.map((day) => {
-        const isSelected = selectedDays.includes(day);
+      {ALL_WEEKDAYS.map((day) => {
+        const isSelected = selectedDays.includes(RRule[day]);
         return (
           <label key={day}>
             <input
               type="checkbox"
               checked={isSelected}
-              onChange={() => _onChange(day, !isSelected)}
+              onChange={() => _onChange(RRule[day], !isSelected)}
             />
             {dayNames[day]}{' '}
           </label>

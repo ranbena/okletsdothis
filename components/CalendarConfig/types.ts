@@ -1,16 +1,16 @@
-import moment from 'moment';
-
-export type Days = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+import { Moment } from 'moment';
+import { Weekday } from 'rrule';
 
 export type CalendarConfigType = {
-  days: Days[];
-  startTime: string;
+  days: Weekday[];
+  startDate: Moment;
   ordered: boolean;
 };
 
 export type CalendarEvent = {
   title: string;
+  videoImage: string;
   videoUrl: string;
-  startDate: moment.Moment;
-  endDate: moment.Moment;
+  startDate: Moment;
+  endDate: Moment;
 };
