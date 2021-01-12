@@ -6,7 +6,14 @@ const extractPlaylistId = (url: string): { playlistId?: string; error?: string }
     return {};
   }
 
-  const { hostname, pathname, searchParams } = new URL(url);
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(url);
+  } catch {
+    return { error: 'Must be a full youtube playlist url' };
+  }
+
+  const { hostname, pathname, searchParams } = parsedUrl;
 
   if (!hostname.endsWith('youtube.com')) {
     return { error: 'Must be a youtube playlist url' };

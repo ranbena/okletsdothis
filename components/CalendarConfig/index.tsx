@@ -3,13 +3,15 @@ import moment, { Moment } from 'moment';
 import { RRule, Weekday } from 'rrule';
 
 import { getVideoUrl } from 'services/youtube';
-import { YoutubeAPIPlaylistItem } from 'services/youtube/types';
+import { YoutubeAPIPlaylistVideo } from 'services/youtube/types';
 import { CalendarConfigType, CalendarEvent } from './types';
 import { defaultCalendarConfig } from 'utils/constants';
 import { ValueOf } from 'utils/types';
 import DaysSelection from './DaysSelection';
 import TimeSelection from './TimeSelection';
 import OrderSelection from './OrderSelection';
+
+import { Wrapper, Settings, Setting, Label, Calendar } from './styles';
 
 const getFirstDate = (startDate: Moment, days: Weekday[]): Moment => {
   const nowDay = startDate.day();
@@ -28,18 +30,19 @@ const getFirstDate = (startDate: Moment, days: Weekday[]): Moment => {
 
 interface IProps {
   playlistId: string;
-  items: YoutubeAPIPlaylistItem[];
+  playlistTitle: string;
+  items: YoutubeAPIPlaylistVideo[];
   children(events: CalendarEvent[]): JSX.Element;
 }
 
-const Component: FC<IProps> = ({ playlistId, items, children }) => {
+const Component: FC<IProps> = ({ playlistId, playlistTitle, items, children }) => {
   const [config, setConfig] = useState<CalendarConfigType>(defaultCalendarConfig);
 
   const createEvent = (date: Date, idx: number): CalendarEvent => {
     const { snippet } = items[idx];
     const startDate = moment(date);
     return {
-      title: `${snippet.title} (${idx + 1}/${items.length})`,
+      title: `#${idx + 1} ${playlistTitle}`,
       videoImage: snippet.thumbnails.default.url,
       videoUrl: getVideoUrl(snippet.resourceId.videoId, playlistId),
       startDate,
@@ -70,16 +73,23 @@ const Component: FC<IProps> = ({ playlistId, items, children }) => {
   const events = getEvents(); // TODO: useMemo
 
   return (
-    <>
-      <div>
-        Days: <DaysSelection value={config.days} onChange={onChange('days')} />
-        <br />
-        Time: <TimeSelection value={config.startDate} onChange={onChange('startDate')} />
-        <br />
-        Order: <OrderSelection value={config.ordered} onChange={onChange('ordered')} />
-      </div>
-      {children(events)}
-    </>
+    <Wrapper>
+      <Settings>
+        <Setting>
+          <Label>Days:</Label>
+          <DaysSelection value={config.days} onChange={onChange('days')} />
+        </Setting>
+        <Setting>
+          <Label>Time:</Label>
+          <TimeSelection value={config.startDate} onChange={onChange('startDate')} />
+        </Setting>
+        <Setting>
+          <Label>Order:</Label>
+          <OrderSelection value={config.ordered} onChange={onChange('ordered')} />
+        </Setting>
+      </Settings>
+      <Calendar>{children(events)}</Calendar>
+    </Wrapper>
   );
 };
 

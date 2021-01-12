@@ -1,24 +1,26 @@
 import { FC } from 'react';
 import { GetServerSideProps } from 'next';
 
-import PlaylistItems from 'components/PlaylistItems';
+import PlaylistDetails from 'components/PlaylistDetails';
 import CalendarConfig from 'components/CalendarConfig';
 import Calendar from 'components/Calendar';
 
-import { getPlaylistItems } from 'services/youtube';
-import { YoutubeAPIPlaylistItem } from 'services/youtube/types';
+import { getPlaylistDetails, getPlaylistItems } from 'services/youtube';
+import { YoutubeAPIPlaylistVideo, YoutubeAPIPlaylist } from 'services/youtube/types';
 import { CalendarEvent } from 'components/CalendarConfig/types';
 
 interface IProps {
   playlistId: string;
-  items: YoutubeAPIPlaylistItem[];
+  details: YoutubeAPIPlaylist;
+  items: YoutubeAPIPlaylistVideo[];
 }
 
-const Page: FC<IProps> = ({ playlistId, items }) => {
+const Page: FC<IProps> = ({ playlistId, details, items }) => {
   return (
     <div>
-      <PlaylistItems items={items} />
-      <CalendarConfig playlistId={playlistId} items={items}>
+      <PlaylistDetails items={items.length} details={details} />
+      <hr />
+      <CalendarConfig playlistId={playlistId} playlistTitle={details.snippet.title} items={items}>
         {(events: CalendarEvent[]) => <Calendar events={events} />}
       </CalendarConfig>
     </div>
@@ -26,7 +28,7 @@ const Page: FC<IProps> = ({ playlistId, items }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const playlistId = context.params?.id;
+  const playlistId = context.params?.id as string;
 
   if (!playlistId) {
     return {
@@ -34,16 +36,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const items: YoutubeAPIPlaylistItem[] = await getPlaylistItems(playlistId as string);
+  const [items, details] = await Promise.all([
+    getPlaylistItems(playlistId),
+    getPlaylistDetails(playlistId),
+  ]);
 
-  if (!items) {
+  if (!details) {
     return {
       notFound: true,
     };
   }
 
   return {
-    props: { playlistId, items },
+    props: { playlistId, details, items },
   };
 };
 

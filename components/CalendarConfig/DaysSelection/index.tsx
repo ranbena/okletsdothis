@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { Weekday, RRule, WeekdayStr } from 'rrule';
 
+import { Checkbox } from './styles';
+
 const { SU, MO, TU, WE, TH, FR, SA } = RRule;
 
 const ALL_WEEKDAYS: WeekdayStr[] = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
@@ -41,14 +43,12 @@ const Component: FC<IProps> = ({ value: selectedDays, onChange }) => {
       {ALL_WEEKDAYS.map((day) => {
         const isSelected = selectedDays.includes(RRule[day]);
         return (
-          <label key={day}>
-            <input
-              type="checkbox"
-              checked={isSelected}
-              onChange={() => _onChange(RRule[day], !isSelected)}
-            />
-            {dayNames[day]}{' '}
-          </label>
+          <Checkbox
+            key={day}
+            checked={isSelected}
+            onChange={() => _onChange(RRule[day], !isSelected)}>
+            {dayNames[day]}
+          </Checkbox>
         );
       })}
     </span>
