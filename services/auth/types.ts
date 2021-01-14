@@ -1,10 +1,8 @@
 import firebase from 'firebase';
 
-export type User = Pick<firebase.User, 'uid' | 'displayName' | 'photoURL'>;
-
 export type Auth = {
-  user: User | null;
+  user: firebase.User | null;
   loading: boolean;
-  signinWithGoogle: () => void;
+  signinWithGoogle: () => Promise<void>;
   signout: () => void;
 };

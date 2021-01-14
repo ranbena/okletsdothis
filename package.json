@@ -11,6 +11,8 @@
     "antd": "^4.10.2",
     "file-saver": "^2.0.5",
     "firebase": "^8.2.2",
+    "firebase-admin": "^9.4.2",
+    "googleapis": "^67.0.0",
     "ics": "^2.26.2",
     "next": "^10.0.5",
     "react": "^17.0.1",

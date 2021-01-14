@@ -1,7 +1,7 @@
 import { FC, useState, useEffect, useContext, createContext } from 'react';
 
 import firebase from 'services/firebase';
-import { Auth, User } from './types';
+import { Auth } from './types';
 
 const authContext = createContext<Auth | null>(null);
 
@@ -15,25 +15,23 @@ export const useAuth = () => {
 };
 
 function useProvideAuth(): Auth {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<firebase.User | null>(null);
   const [loading, setLoading] = useState(false);
-
-  const handleUserChange = (firebaseUser: firebase.User | null) => {
-    if (firebaseUser) {
-      const { uid, displayName, photoURL } = firebaseUser;
-      const user = { uid, displayName, photoURL };
-      setUser(user);
-    } else {
-      setUser(null);
-    }
-  };
 
   const signinWithGoogle = () => {
     setLoading(true);
+
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/calendar.events');
+
     return firebase
       .auth()
-      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(({ user }) => handleUserChange(user))
+      .signInWithPopup(provider)
+      .then((result) => {
+        const credential = result.credential as firebase.auth.OAuthCredential;
+        window.localStorage.setItem('token', credential?.accessToken ?? '');
+        setUser(result.user);
+      })
       .finally(() => setLoading(false));
   };
 
@@ -41,12 +39,11 @@ function useProvideAuth(): Auth {
     return firebase
       .auth()
       .signOut()
-      .then(() => handleUserChange(null));
+      .then(() => setUser(null));
   };
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onIdTokenChanged(handleUserChange);
-
+    const unsubscribe = firebase.auth().onIdTokenChanged(setUser);
     return () => unsubscribe();
   }, []);
 
