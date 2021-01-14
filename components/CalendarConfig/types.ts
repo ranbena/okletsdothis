@@ -9,6 +9,7 @@ export type CalendarConfigType = {
 
 export type CalendarEvent = {
   title: string;
+  videoTitle: string;
   videoImage: string;
   videoUrl: string;
   startDate: Moment;

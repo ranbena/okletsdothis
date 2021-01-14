@@ -4,6 +4,7 @@ import { GetServerSideProps } from 'next';
 import PlaylistDetails from 'components/PlaylistDetails';
 import CalendarConfig from 'components/CalendarConfig';
 import Calendar from 'components/Calendar';
+import AddToCalendar from 'components/AddToCalendar';
 
 import { getPlaylistDetails, getPlaylistItems } from 'services/youtube';
 import { YoutubeAPIPlaylistVideo, YoutubeAPIPlaylist } from 'services/youtube/types';
@@ -16,12 +17,19 @@ interface IProps {
 }
 
 const Page: FC<IProps> = ({ playlistId, details, items }) => {
+  const playlistTitle = details.snippet.title;
+
   return (
     <div>
       <PlaylistDetails items={items.length} details={details} />
       <hr />
-      <CalendarConfig playlistId={playlistId} playlistTitle={details.snippet.title} items={items}>
-        {(events: CalendarEvent[]) => <Calendar events={events} />}
+      <CalendarConfig playlistId={playlistId} playlistTitle={playlistTitle} items={items}>
+        {(events: CalendarEvent[]) => (
+          <>
+            <Calendar events={events} />
+            <AddToCalendar playlistTitle={playlistTitle} events={events} />
+          </>
+        )}
       </CalendarConfig>
     </div>
   );
