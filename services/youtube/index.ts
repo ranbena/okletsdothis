@@ -20,8 +20,7 @@ export const getPlaylistItems = (playlistId: string): Promise<YoutubeAPIPlaylist
 };
 
 export const getVideoUrl = (id: string, playlistId?: string) => {
-  const url = new URL('https://www.youtube.com/watch');
-  url.searchParams.append('v', id);
+  const url = new URL(`https://youtu.be/${id}`);
   playlistId && url.searchParams.append('list', playlistId);
 
   return url.href;
