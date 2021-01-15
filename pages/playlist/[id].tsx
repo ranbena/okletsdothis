@@ -4,7 +4,7 @@ import { GetServerSideProps } from 'next';
 import PlaylistDetails from 'components/PlaylistDetails';
 import CalendarConfig from 'components/CalendarConfig';
 import Calendar from 'components/Calendar';
-import AddToCalendar from 'components/AddToCalendar';
+import AddToCalendar from 'components/AddToCalendarModal';
 
 import { getPlaylistDetails, getPlaylistItems } from 'services/youtube';
 import { YoutubeAPIPlaylistVideo, YoutubeAPIPlaylist } from 'services/youtube/types';

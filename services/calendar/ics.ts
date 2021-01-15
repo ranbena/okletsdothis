@@ -2,7 +2,6 @@ import { saveAs } from 'file-saver';
 import { DateArray, EventAttributes } from 'ics';
 import { Moment } from 'moment';
 
-import firebase from 'services/auth/firebase';
 import { CalendarEvent } from 'components/CalendarConfig/types';
 
 const ics = require('ics'); // doesn't work as esm
@@ -15,7 +14,9 @@ const toDateArray = (val: Moment) => {
 type Time = 'local' | 'utc';
 const LOCAL: Time = 'local';
 
-export const downloadICSFile = (playlistTitle: string, events: CalendarEvent[]) => {
+export type Result = 'ok' | 'events_error' | 'browser_support_error' | 'save_error';
+
+export const download = (playlistTitle: string, events: CalendarEvent[]): Result => {
   const icsEvents: EventAttributes[] = events.map((event) => ({
     title: event.title,
     description: event.videoTitle,
@@ -35,36 +36,22 @@ export const downloadICSFile = (playlistTitle: string, events: CalendarEvent[]) 
   const { error, value } = ics.createEvents(icsEvents);
 
   if (!value || error) {
-    throw new Error(error);
+    return 'events_error';
+  }
+
+  if (!new Blob()) {
+    return 'browser_support_error';
   }
 
   var blob = new Blob([value], {
     type: 'text/calendar',
   });
 
-  saveAs(blob, `${playlistTitle}.ics`);
-};
-
-export const saveToGoogleCalendar = async (user: firebase.User, events: CalendarEvent[]) => {
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-  });
-
-  const accessToken = window.localStorage.getItem('token');
-  if (accessToken) {
-    headers.append('access-token', accessToken);
+  try {
+    saveAs(blob, `${playlistTitle}.ics`);
+  } catch (err) {
+    return 'save_error';
   }
 
-  const authToken = await user.getIdToken();
-  if (authToken) {
-    headers.append('auth-token', authToken);
-  }
-
-  const body = JSON.stringify(events);
-
-  return fetch('/api/gcal', {
-    method: 'POST',
-    headers,
-    body,
-  });
+  return 'ok';
 };

@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.3.0",
     "antd": "^4.10.2",
     "file-saver": "^2.0.5",
     "firebase": "^8.2.2",

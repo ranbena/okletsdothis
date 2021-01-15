@@ -26,7 +26,7 @@ const verifyAuthToken = (idToken: string): Promise<admin.auth.DecodedIdToken> =>
 
 const saveEvent = (calendar: calendar_v3.Calendar, event: CalendarEvent) => {
   return calendar.events.insert({
-    calendarId: 'primary',
+    calendarId: 'primary', // TODO: create a dedicated calendar for this
     requestBody: {
       summary: event.title,
       description: event.videoTitle + '\n\n' + event.videoUrl,
