@@ -7,3 +7,5 @@ export const defaultCalendarConfig: CalendarConfigType = {
   startDate: moment('08:00', 'HH:mm'),
   ordered: true,
 };
+
+export const eventSaveBatchSize = 5;
