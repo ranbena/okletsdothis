@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 
 import { Wrapper, List, ListItem } from './styles';
 import { CalendarEvent } from 'components/CalendarConfig/types';
