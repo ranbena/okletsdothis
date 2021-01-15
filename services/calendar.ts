@@ -2,9 +2,8 @@ import { saveAs } from 'file-saver';
 import { DateArray, EventAttributes } from 'ics';
 import { Moment } from 'moment';
 
-import firebase from 'services/firebase';
+import firebase from 'services/auth/firebase';
 import { CalendarEvent } from 'components/CalendarConfig/types';
-import { access } from 'fs';
 
 const ics = require('ics'); // doesn't work as esm
 const toDateArray = (val: Moment) => {
@@ -43,7 +42,7 @@ export const downloadICSFile = (playlistTitle: string, events: CalendarEvent[]) 
     type: 'text/calendar',
   });
 
-  saveAs(blob, 'calendar.ics');
+  saveAs(blob, `${playlistTitle}.ics`);
 };
 
 export const saveToGoogleCalendar = async (user: firebase.User, events: CalendarEvent[]) => {

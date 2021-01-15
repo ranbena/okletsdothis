@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import admin from 'services/firebase-admin';
+import admin from 'services/auth/firebase-admin';
 import { google } from 'googleapis';
-import moment from 'moment';
 
 import { CalendarEvent } from 'components/CalendarConfig/types';
 
@@ -22,8 +21,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).json({ msg: 'authentication failed' });
   }
 
+  // TODO: is this really necessary?
   try {
-    const decoded = await decodeFirebaseToken(authToken);
+    await decodeFirebaseToken(authToken);
   } catch (err) {
     return res.status(401).json({ msg: 'token decoding failed' });
   }
@@ -31,8 +31,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const oauth2Client = new google.auth.OAuth2();
   oauth2Client.setCredentials({ access_token: accessToken });
   const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
-
-  console.log(req.body);
 
   const events: CalendarEvent[] = req.body;
 
