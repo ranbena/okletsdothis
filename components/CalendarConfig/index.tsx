@@ -41,6 +41,8 @@ const Component: FC<IProps> = ({ playlistId, playlistTitle, items, children }) =
   const createEvent = (date: Date, idx: number): CalendarEvent => {
     const { snippet } = items[idx];
 
+    const videoImage = snippet.thumbnails.default?.url; // TODO: fallback image url
+
     // merge date with config time
     const startDate = moment(config.startDate).set({
       year: date.getFullYear(),
@@ -50,7 +52,7 @@ const Component: FC<IProps> = ({ playlistId, playlistTitle, items, children }) =
     return {
       title: `#${idx + 1} ${playlistTitle}`,
       videoTitle: snippet.title,
-      videoImage: snippet.thumbnails.default.url,
+      videoImage,
       videoUrl: getVideoUrl(snippet.resourceId.videoId, playlistId),
       startDate,
       endDate: moment(startDate).add(30, 'minutes'), // TODO: set video length instead
