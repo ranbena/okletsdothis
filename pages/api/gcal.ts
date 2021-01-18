@@ -28,6 +28,7 @@ const saveEvent = (calendar: calendar_v3.Calendar, event: CalendarEvent) => {
   return calendar.events.insert({
     calendarId: 'primary', // TODO: create a dedicated calendar for this
     requestBody: {
+      // id: generateUUID(), // TODO: generate unique id to avoid duplicate events in calendar. If `events.insert` results in status 409 - run `events.update` instead.
       summary: event.title,
       description: event.videoTitle + '\n\n' + event.videoUrl,
       start: {

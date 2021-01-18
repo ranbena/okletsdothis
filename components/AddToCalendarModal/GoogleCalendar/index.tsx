@@ -49,7 +49,6 @@ const Component: FC<IProps> = ({ events }) => {
         setSuccess(true);
         break;
       case 'auth_error':
-        // signout();
         setError('Your login session has expired. Please login again.');
         break;
       case 'fetch_error':
