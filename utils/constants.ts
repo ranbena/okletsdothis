@@ -9,3 +9,6 @@ export const defaultCalendarConfig: CalendarConfigType = {
 };
 
 export const eventSaveBatchSize = 5;
+
+// yoga with adriene
+export const placeholder = 'https://youtube.com/playlist?list=PLui6Eyny-UzwfYsbU4iBdXHorpVjkLx4d';

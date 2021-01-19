@@ -1,7 +1,3 @@
 import { createGlobalStyle } from 'styled-components';
 
-export const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 20px;
-  }
-`;
+export const GlobalStyle = createGlobalStyle``;
