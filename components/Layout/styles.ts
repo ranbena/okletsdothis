@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ForwardOutlined } from '@ant-design/icons';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -6,21 +7,26 @@ export const Wrapper = styled.div`
   min-height: 100vh;
 `;
 
-export const Header = styled.div<{ expanded?: boolean }>`
-  height: ${(p) => (p.expanded ? 200 : 100)}px;
-  text-align: center;
-  padding: 30px 0;
+export const Header = styled.div`
+  height: 94px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+
+  nav a {
+    margin-left: 10px;
+  }
 `;
 
-export const Title = styled.h1`
-  font-size: 50px;
+export const Heading = styled.h1`
+  font-family: Carter One;
+  font-size: 24px;
   margin-bottom: 0;
 `;
 
-export const Subtitle = styled.h2`
-  font-weight: normal;
-  font-size: 20px;
-  color: #999;
+export const Logo = styled(ForwardOutlined)`
+  margin-right: 3px;
 `;
 
 export const Content = styled.div`

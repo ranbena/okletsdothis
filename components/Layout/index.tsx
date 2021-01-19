@@ -1,16 +1,19 @@
-import { FC, PropsWithChildren } from 'react';
-import { Wrapper, Header, Title, Subtitle, Content, Footer } from './styles';
+import { FC } from 'react';
 
-interface IProps {
-  expandedHeader?: boolean;
-}
+import { Wrapper, Header, Heading, Logo, Content, Footer } from './styles';
 
-const Layout: FC<PropsWithChildren<IProps>> = ({ expandedHeader = false, children }) => {
+const Layout: FC = ({ children }) => {
   return (
     <Wrapper>
-      <Header expanded={expandedHeader}>
-        <Title>Youtube Engage</Title>
-        <Subtitle>Make a calendar schedule from Youtube playlists</Subtitle>
+      <Header>
+        <Heading>
+          <Logo />
+          OK LET'S DO THIS!
+        </Heading>
+        <nav>
+          <a href="whatever">What is it</a>
+          <a href="whatever">How it works</a>
+        </nav>
       </Header>
       <Content>{children}</Content>
       <Footer>All right reserved Github link</Footer>

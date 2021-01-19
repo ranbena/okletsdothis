@@ -40,10 +40,10 @@ const saveEvent = (calendar: calendar_v3.Calendar, event: CalendarEvent) => {
         timeZone: 'utc',
       },
       creator: {
-        displayName: 'Youtube Engage',
+        displayName: "OK Let's Do This",
       },
       organizer: {
-        displayName: 'Youtube Engage',
+        displayName: "OK Let's Do This",
       },
     },
   });

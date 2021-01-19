@@ -4,7 +4,7 @@ import About from 'components/Home/About';
 
 export default function Home() {
   return (
-    <Layout expandedHeader>
+    <Layout>
       <Form />
       <About />
     </Layout>

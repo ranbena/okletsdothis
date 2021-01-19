@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 
 import { AuthProvider } from 'services/auth';
 
-import { GlobalStyle } from 'styles/global';
+import GlobalStyle from 'styles/global';
 import 'antd/dist/antd.css';
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {

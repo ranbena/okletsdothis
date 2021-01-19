@@ -29,7 +29,7 @@ export const download = (playlistTitle: string, events: CalendarEvent[]): Result
     url: event.videoUrl,
     calName: playlistTitle,
     organizer: {
-      name: 'Youtube Engage',
+      name: "OK Let's Do This",
     },
   }));
 

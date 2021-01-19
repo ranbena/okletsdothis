@@ -18,6 +18,7 @@ interface IProps {
 
 const Page: FC<IProps> = ({ playlistId, details, items }) => {
   const playlistTitle = details.snippet.title;
+  console.log(items);
 
   return (
     <div>
@@ -51,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (!details) {
     return {
-      notFound: true,
+      notFound: true, // TODO: special page for private playlists (by result.status.privacyStatus)
     };
   }
 

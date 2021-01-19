@@ -13,20 +13,7 @@ import OrderSelection from './OrderSelection';
 
 import { Wrapper, Settings, Setting, Label, Calendar } from './styles';
 
-const getFirstDate = (startDate: Moment, days: Weekday[]): Moment => {
-  const nowDay = startDate.day();
-  let diff;
-  for (let i = nowDay; i < days.length; i++) {
-    if (days[i]) {
-      diff = i - nowDay;
-      break;
-    }
-  }
-  if (diff === undefined) {
-    throw new Error('Day not found'); // improbable
-  }
-  return startDate.add(diff, 'day');
-};
+const fallbackVideoImage = 'https://i.ytimg.com/img/no_thumbnail.jpg'; // TODO: use local file
 
 interface IProps {
   playlistId: string;
@@ -41,7 +28,7 @@ const Component: FC<IProps> = ({ playlistId, playlistTitle, items, children }) =
   const createEvent = (date: Date, idx: number): CalendarEvent => {
     const { snippet } = items[idx];
 
-    const videoImage = snippet.thumbnails.default?.url; // TODO: fallback image url
+    const videoImage = snippet.thumbnails.default?.url || fallbackVideoImage; // for private videos
 
     // merge date with config time
     const startDate = moment(config.startDate).set({
