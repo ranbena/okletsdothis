@@ -3,7 +3,7 @@ import { Button, Alert } from 'antd';
 import { CloudDownloadOutlined, CheckOutlined } from '@ant-design/icons';
 
 import { download } from 'src/services/calendar/ics';
-import { CalendarEvent } from 'src/utils/node_modules/components/CalendarConfig/typesles/components/CalendarConfig/typesonents/CalendarConfig/typesypes';
+import { CalendarEvent } from 'src/components/CalendarConfig/types';
 import { Wrapper } from './styles';
 
 interface IProps {

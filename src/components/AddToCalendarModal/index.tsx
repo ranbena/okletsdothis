@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Modal } from 'antd';
 
 import { Wrapper, List, ListItem } from './styles';
-import { CalendarEvent } from 'src/utils/node_modules/components/CalendarConfig/typesles/components/CalendarConfig/typesonents/CalendarConfig/typesypes';
+import { CalendarEvent } from 'src/components/CalendarConfig/types';
 
 import GoogleCalendar from './GoogleCalendar';
 import ICSFile from './ICSFile';

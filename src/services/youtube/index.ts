@@ -1,11 +1,11 @@
 import {
-  YoutubeAPIPlaylistVideo,
-  YoutubeAPIPlaylist,
-  YoutubeAPIPlaylistDetailsResponse,
-  YoutubeAPIPlaylistItemsResponse,
+  APIVideo,
+  APIPlaylist,
+  APIPlaylistDetailsResponse,
+  APIPlaylistItemsResponse,
 } from './types';
 
-export const getPlaylistItems = (playlistId: string): Promise<YoutubeAPIPlaylistVideo[]> => {
+export const getPlaylistItems = (playlistId: string): Promise<APIVideo[]> => {
   const url = new URL('https://www.googleapis.com/youtube/v3/playlistItems');
   url.searchParams.append('key', process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string);
   url.searchParams.append('playlistId', playlistId);
@@ -14,7 +14,7 @@ export const getPlaylistItems = (playlistId: string): Promise<YoutubeAPIPlaylist
 
   return fetch(url.href)
     .then((response) => response.json())
-    .then((data: YoutubeAPIPlaylistItemsResponse) => {
+    .then((data: APIPlaylistItemsResponse) => {
       return data.items;
     });
 };
@@ -26,7 +26,7 @@ export const getVideoUrl = (id: string, playlistId?: string) => {
   return url.href;
 };
 
-export const getPlaylistDetails = (playlistId: string): Promise<YoutubeAPIPlaylist> => {
+export const getPlaylistDetails = (playlistId: string): Promise<APIPlaylist> => {
   const url = new URL('https://www.googleapis.com/youtube/v3/playlists');
   url.searchParams.append('key', process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string);
   url.searchParams.append('id', playlistId);
@@ -34,7 +34,7 @@ export const getPlaylistDetails = (playlistId: string): Promise<YoutubeAPIPlayli
 
   return fetch(url.href)
     .then((response) => response.json())
-    .then((data: YoutubeAPIPlaylistDetailsResponse) => {
+    .then((data: APIPlaylistDetailsResponse) => {
       return data.items[0];
     });
 };

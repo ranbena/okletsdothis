@@ -7,7 +7,7 @@ import { save, Result } from 'src/services/calendar/gcal';
 import { useAuth } from 'src/services/auth';
 
 import { Wrapper } from './styles';
-import { CalendarEvent } from 'src/utils/node_modules/components/CalendarConfig/typesles/components/CalendarConfig/typesonents/CalendarConfig/typesypes';
+import { CalendarEvent } from 'src/components/CalendarConfig/types';
 import { eventSaveBatchSize as size } from 'src/utils/constants';
 import { chunkArray } from 'src/utils/helpers';
 

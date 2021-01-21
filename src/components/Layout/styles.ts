@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ForwardOutlined, GithubOutlined } from '@ant-design/icons';
+import { ColoredIcon } from 'src/styles/common';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -18,11 +19,13 @@ export const Header = styled.div`
 
     a {
       margin-left: 40px;
+      font-size: 15px;
     }
   }
 `;
 
-export const Heading = styled.h1`
+export const Heading = styled.a`
+  color: ${({ theme }) => theme.colors.text};
   font-family: Carter One;
   font-size: 24px;
   margin-bottom: 0;
@@ -38,13 +41,30 @@ export const GithubIcon = styled(GithubOutlined)`
 
 export const Content = styled.div`
   flex: 1;
+  background-color: ${({ theme }) => theme.colors.bg};
+  padding: 62px 20px;
+`;
+
+export const ContentInner = styled.div`
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
 `;
 
 export const Footer = styled.div`
   height: 100px;
-  background: black;
-  color: white;
+  background-color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.light};
   display: flex;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
+
+  a {
+    color: ${({ theme }) => theme.colors.bg};
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.light};
+      text-decoration: underline;
+    }
+  }
 `;

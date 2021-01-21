@@ -1,18 +1,52 @@
 import { FC } from 'react';
-import { YoutubeAPIPlaylist } from 'src/services/youtube/types';
+import { Tooltip } from 'antd';
+{
+  (' ');
+}
+import { QuestionCircleOutlined } from '@ant-design/icons';
+
+import { APIPlaylist, APIVideo } from 'src/services/youtube/types';
+import { extractDeletedVideos } from 'src/utils/helpers';
+import { Image, Text, Content, Title, List, ListItem } from './styles';
+
+const deletedPhrase = (count: number) => {
+  return count === 1
+    ? '1 video from this playlist was omitted because it is no longer available.'
+    : `${count} videos from this playlist were omitted because they are no longer available.`;
+};
 
 interface IProps {
-  items: number;
-  details: YoutubeAPIPlaylist;
+  items: APIVideo[];
+  details: APIPlaylist;
 }
 
 const Component: FC<IProps> = ({ items, details }) => {
-  const { width, height, url } = details.snippet.thumbnails.medium;
+  const { url } = details.snippet.thumbnails.medium;
+
+  const [deleted, rest] = extractDeletedVideos(items);
+
   return (
-    <div>
-      <h3>Found {items} videos</h3>
-      <img src={url} height={height} width={width} /> {details.snippet.title}
-    </div>
+    <>
+      <Title>
+        {details.snippet.title} <small>by {details.snippet.channelTitle}</small>
+      </Title>
+      <Content>
+        <Image src={url} />
+        <Text>
+          Found {rest.length} videos:{' '}
+          {deleted.length ? (
+            <Tooltip title={deletedPhrase(deleted.length)}>
+              <QuestionCircleOutlined />
+            </Tooltip>
+          ) : null}
+          <List>
+            {rest.map((item) => (
+              <ListItem key={item.id}>{item.snippet.title}</ListItem>
+            ))}
+          </List>
+        </Text>
+      </Content>
+    </>
   );
 };
 

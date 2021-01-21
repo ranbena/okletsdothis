@@ -1,15 +1,31 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
+import Link from 'next/link';
+import { useTheme } from 'styled-components';
 
-import { Wrapper, Header, Heading, Logo, Content, Footer, GithubIcon } from './styles';
+import {
+  Wrapper,
+  Header,
+  Heading,
+  Logo,
+  Content,
+  ContentInner,
+  Footer,
+  GithubIcon,
+} from './styles';
+import { ColoredIcon } from 'src/styles/common';
 
 const Layout: FC = ({ children }) => {
+  const theme = useTheme();
+
   return (
     <Wrapper>
       <Header>
-        <Heading>
-          <Logo />
-          OK LET'S DO THIS!
-        </Heading>
+        <Link href="/" passHref>
+          <Heading>
+            <Logo />
+            OK LET'S DO THIS!
+          </Heading>
+        </Link>
         <nav>
           <a href="#what">What is it</a>
           <a href="#how">How it works</a>
@@ -18,8 +34,14 @@ const Layout: FC = ({ children }) => {
           <GithubIcon />
         </a>
       </Header>
-      <Content>{children}</Content>
-      <Footer>All right reserved Github link</Footer>
+      <Content>
+        <ContentInner>{children}</ContentInner>
+      </Content>
+      <Footer>
+        Made with&nbsp;
+        <ColoredIcon color={theme.colors.bg}>💓</ColoredIcon>
+        &nbsp; by&nbsp;<a href="https://github.com/ranbena">Ran Byron</a>
+      </Footer>
     </Wrapper>
   );
 };

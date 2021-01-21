@@ -7,7 +7,7 @@ type Thumbnails = Record<
   }
 >;
 
-export type YoutubeAPIPlaylistVideo = {
+export type APIVideo = {
   id: string;
   snippet: {
     title: string;
@@ -22,8 +22,8 @@ export type YoutubeAPIPlaylistVideo = {
   };
 };
 
-export type YoutubeAPIPlaylistItemsResponse = {
-  items: YoutubeAPIPlaylistVideo[];
+export type APIPlaylistItemsResponse = {
+  items: APIVideo[];
   nextPageToken: string;
   pageInfo: {
     totalResults: number;
@@ -31,7 +31,7 @@ export type YoutubeAPIPlaylistItemsResponse = {
   };
 };
 
-export type YoutubeAPIPlaylist = {
+export type APIPlaylist = {
   id: string;
   snippet: {
     title: string;
@@ -47,8 +47,8 @@ export type YoutubeAPIPlaylist = {
   };
 };
 
-export type YoutubeAPIPlaylistDetailsResponse = {
-  items: YoutubeAPIPlaylist[];
+export type APIPlaylistDetailsResponse = {
+  items: APIPlaylist[];
   pageInfo: {
     totalResults: number;
     resultsPerPage: number;
