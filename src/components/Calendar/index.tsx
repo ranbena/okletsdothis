@@ -3,20 +3,9 @@ import moment, { Moment } from 'moment';
 import { CalendarEvent } from 'src/components/CalendarConfig/types';
 import { HeaderRender } from 'antd/lib/calendar/generateCalendar';
 import { last } from 'src/utils/helpers';
+import Popover, { PopoverPortal } from './Popover';
 
-import {
-  Wrapper,
-  CarouselWrapper,
-  Carousel,
-  Cell,
-  Calendar,
-  Header,
-  PopoverPortal,
-  PopoverWrapper,
-  Popover,
-  Title,
-  Thumbnail,
-} from './styles';
+import { Wrapper, CarouselWrapper, Carousel, Cell, Calendar, Header } from './styles';
 
 const sig = (event: CalendarEvent) => event.startDate.format('MY'); // get month + year signature
 const byMonth = (events: CalendarEvent[]) => {
@@ -53,13 +42,7 @@ const CalendarComponent: FC<IProps> = ({ events }) => {
       return (
         <Popover
           key={key}
-          title={null}
-          content={
-            <PopoverWrapper>
-              <Thumbnail src={event.videoImage} />
-              <Title>{event.title}</Title>
-            </PopoverWrapper>
-          }
+          event={event}
           getPopupContainer={() => portalRef?.current as HTMLElement}>
           {cell}
         </Popover>
