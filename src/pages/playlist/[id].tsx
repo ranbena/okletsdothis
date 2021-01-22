@@ -54,7 +54,7 @@ const PlaylistPage: FC<IProps> = ({ playlistId, details, items }) => {
       return {
         title: `#${idx + 1} ${playlistTitle}`,
         videoTitle: title,
-        videoImage: thumbnails.default?.url || fallbackVideoImage, // for private videos,
+        videoImage: thumbnails.medium?.url || fallbackVideoImage, // for private videos,
         videoUrl: getVideoUrl(resourceId.videoId, playlistId),
         startDate,
         endDate: startDate.clone().add(30, 'minutes'), // TODO: set video length instead

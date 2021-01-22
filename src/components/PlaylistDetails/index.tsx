@@ -21,7 +21,7 @@ interface IProps {
 }
 
 const Component: FC<IProps> = ({ items, details }) => {
-  const { url } = details.snippet.thumbnails.medium;
+  const { url } = details.snippet.thumbnails.high;
 
   const [deleted, rest] = extractDeletedVideos(items);
 
