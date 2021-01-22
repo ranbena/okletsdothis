@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Calendar as AntCalendar, Carousel as AntCarousel } from 'antd';
+import styled, { keyframes } from 'styled-components';
+import { Calendar as AntCalendar, Carousel as AntCarousel, Popover as AntPopover } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 export const CarouselWrapper = styled.div``;
@@ -16,6 +16,10 @@ export const Calendar = styled(AntCalendar)`
   // disable interactivity
   .ant-picker-cell {
     pointer-events: none;
+
+    &.ant-picker-cell-in-view [data-has-event='true'] {
+      pointer-events: auto;
+    }
 
     .ant-picker-cell-inner {
       color: ${({ theme }) => theme.colors.link};
@@ -59,7 +63,7 @@ export const Cell = styled.div.attrs({
     color: ${({ theme }) => theme.colors.light} !important;
   }
   .ant-picker-cell-disabled:not(.ant-picker-cell-in-view) & {
-    display: none;
+    opacity: 0 !important;
   }
 `;
 
@@ -117,7 +121,7 @@ export const Wrapper = styled.div`
 
 export const Carousel = styled(AntCarousel).attrs({
   slidesToShow: 2,
-  slidesToScroll: 2,
+  slidesToScroll: 1,
   arrows: true,
   infinite: false,
   prevArrow: <LeftOutlined />,
@@ -145,4 +149,68 @@ export const Carousel = styled(AntCarousel).attrs({
     left: -30px;
     transform: scale(0.8, 1.5); // TODO: swap for actual wider button
   }
+`;
+
+const rotatePopover = 'rotateY(-0.8deg) rotateX(0.2deg)';
+
+const antZoomBigIn = keyframes`
+  from {
+    opacity: 0;
+    transform: scale(.8) ${rotatePopover};
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) ${rotatePopover};
+  }
+`;
+
+const antZoomBigOut = keyframes`
+  from {
+    opacity: 1;
+    transform: scale(1) ${rotatePopover};
+  }
+  to {
+    opacity: 0;
+    transform: scale(.8) ${rotatePopover};
+  }
+`;
+
+export const PopoverPortal = styled.div`
+  .ant-popover {
+    transform-origin: right bottom !important;
+    transform: ${rotatePopover};
+
+    &.zoom-big-appear.zoom-big-appear-active,
+    &.zoom-big-enter.zoom-big-enter-active {
+      animation-name: ${antZoomBigIn};
+    }
+
+    &.zoom-big-leave.zoom-big-leave-active {
+      animation-name: ${antZoomBigOut};
+    }
+  }
+`;
+
+export const PopoverWrapper = styled.div`
+  display: flex;
+  width: 250px;
+  height: 90px;
+`;
+
+export const Popover = styled(AntPopover).attrs({
+  destroyTooltipOnHide: true,
+})``;
+
+export const Title = styled.div`
+  color: ${({ theme }) => theme.colors.text};
+  overflow: hidden;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+`;
+
+export const Thumbnail = styled.img`
+  margin-right: 10px;
+  width: 120px;
+  height: 90px;
 `;

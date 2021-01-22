@@ -1,10 +1,22 @@
-import { FC, ReactNode, memo } from 'react';
+import { FC, ReactNode, memo, useRef } from 'react';
 import moment, { Moment } from 'moment';
 import { CalendarEvent } from 'src/components/CalendarConfig/types';
 import { HeaderRender } from 'antd/lib/calendar/generateCalendar';
 import { last } from 'src/utils/helpers';
 
-import { Wrapper, CarouselWrapper, Carousel, Cell, Calendar, Header } from './styles';
+import {
+  Wrapper,
+  CarouselWrapper,
+  Carousel,
+  Cell,
+  Calendar,
+  Header,
+  PopoverPortal,
+  PopoverWrapper,
+  Popover,
+  Title,
+  Thumbnail,
+} from './styles';
 
 const sig = (event: CalendarEvent) => event.startDate.format('MY'); // get month + year signature
 const byMonth = (events: CalendarEvent[]) => {
@@ -25,14 +37,36 @@ interface IProps {
 }
 
 const CalendarComponent: FC<IProps> = ({ events }) => {
+  const portalRef = useRef<HTMLDivElement>(null);
+
   const dateCellRender = (date: Moment): ReactNode => {
     const day = date.get('date');
     const event = events.find(({ startDate }) => startDate.isSame(date, 'day'));
-    return (
-      <Cell key={day} data-has-event={!!event}>
+    const key = date.format('MY');
+    const cell = (
+      <Cell key={key} data-has-event={!!event}>
         {day}
       </Cell>
     );
+
+    if (event) {
+      return (
+        <Popover
+          key={key}
+          title={null}
+          content={
+            <PopoverWrapper>
+              <Thumbnail src={event.videoImage} />
+              <Title>{event.title}</Title>
+            </PopoverWrapper>
+          }
+          getPopupContainer={() => portalRef?.current as HTMLElement}>
+          {cell}
+        </Popover>
+      );
+    }
+
+    return cell;
   };
 
   const headerRender: HeaderRender<Moment> = ({ value }) => {
@@ -43,14 +77,14 @@ const CalendarComponent: FC<IProps> = ({ events }) => {
 
   return (
     <Wrapper>
+      <PopoverPortal ref={portalRef} />
       <CarouselWrapper>
         <Carousel>
           {byMonthEvents.map((_events, idx) => {
             const firstDate = _events[0].startDate;
             const lastDate = last(_events).startDate;
             const startRange = idx === 0 ? moment() : firstDate.clone().startOf('month');
-            const endRange =
-              idx === byMonthEvents.length - 1 ? lastDate : lastDate.clone().endOf('month');
+            const endRange = lastDate.clone().endOf('month');
             const validRange = [startRange, endRange] as [Moment, Moment];
             return (
               <div key={idx}>

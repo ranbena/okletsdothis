@@ -10,7 +10,7 @@ export const getPlaylistItems = (playlistId: string): Promise<APIVideo[]> => {
   url.searchParams.append('key', process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string);
   url.searchParams.append('playlistId', playlistId);
   url.searchParams.append('part', 'snippet');
-  url.searchParams.append('maxResults', '50');
+  url.searchParams.append('maxResults', '50'); // TODO: allow more than 50 with paging
 
   return fetch(url.href)
     .then((response) => response.json())
