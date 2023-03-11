@@ -21,7 +21,7 @@ const defaultContext: ScheduleContext = {
 
 const ScheduleContext = createContext<ScheduleContext>(defaultContext);
 
-export const ScheduleProvider: FC = ({ children }) => {
+export const ScheduleProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const schedule = useProvideSchedule();
   return <ScheduleContext.Provider value={schedule}>{children}</ScheduleContext.Provider>;
 };

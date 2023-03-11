@@ -1,5 +1,5 @@
 import { ChangeEventHandler, FC, FormEventHandler, useEffect, useRef, useState } from 'react';
-import { Input as AntInput } from 'antd';
+import { InputRef } from 'antd';
 
 import {
   Wrapper,
@@ -35,7 +35,7 @@ interface IProps {
 
 const FormComponent: FC<IProps> = ({ playlistUrl, setPlaylistUrl, loading, onSubmit }) => {
   const [error, setError] = useState<ERROR>(ERROR.OK);
-  const inputRef = useRef<AntInput>(null);
+  const inputRef = useRef<InputRef>(null);
 
   const hasError = error !== ERROR.OK;
 

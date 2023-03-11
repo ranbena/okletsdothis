@@ -4,7 +4,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { SkeletonImage, Text, Content, Title, List } from './styles';
 
 const Component: FC = () => (
-  <SkeletonTheme color="#8de4af" highlightColor="#8adcaa">
+  <SkeletonTheme baseColor="#8de4af" highlightColor="#8adcaa">
     <Title>
       <Skeleton />
     </Title>

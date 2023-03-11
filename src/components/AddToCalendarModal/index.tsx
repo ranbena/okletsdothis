@@ -23,8 +23,6 @@ const Component: FC<IProps> = ({ playlistTitle, events }) => {
     setMethod(null);
   };
 
-  console.log('here');
-
   return (
     <Wrapper>
       <button onClick={() => setModalVisible(true)}>Add to Calendar</button>

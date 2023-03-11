@@ -9,8 +9,6 @@ interface IProps {
 }
 
 const Component: FC<PropsWithChildren<IProps>> = ({ event, getPopupContainer, children }) => {
-  const variable = 'hello';
-
   return (
     <Popover
       content={

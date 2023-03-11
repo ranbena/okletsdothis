@@ -32,11 +32,11 @@ const saveEvent = (calendar: calendar_v3.Calendar, event: CalendarEvent) => {
       summary: event.title,
       description: event.videoTitle + '\n\n' + event.videoUrl,
       start: {
-        dateTime: (event.startDate as unknown) as string,
+        dateTime: event.startDate as unknown as string,
         timeZone: 'utc',
       },
       end: {
-        dateTime: (event.endDate as unknown) as string,
+        dateTime: event.endDate as unknown as string,
         timeZone: 'utc',
       },
       creator: {
@@ -75,7 +75,7 @@ const saveToGoogleCalendar = async (accessToken: string, events: CalendarEvent[]
   try {
     await Promise.all(events.map((event) => saveEvent(calendar, event)));
   } catch (err) {
-    if (err.message === API_ERROR_MESSAGES.INVALID_CREDS) {
+    if (err instanceof Error && err.message === API_ERROR_MESSAGES.INVALID_CREDS) {
       throw new AuthError('Google api error:' + err);
     }
     throw new Error('Google api error:' + err);
