@@ -39,8 +39,9 @@ export default createGlobalStyle`
   }
 
   a {
-    color: ${({ theme }) => theme.colors.link};
+    color: ${({ theme }) => theme.colors.light};
     transition: none;
+    text-transform: uppercase;
 
     &:active,
     &:hover {

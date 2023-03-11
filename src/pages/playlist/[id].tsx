@@ -1,7 +1,6 @@
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { Button } from 'antd';
 import { LeftOutlined, DownOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { RRule } from 'rrule';
@@ -78,9 +77,7 @@ const PlaylistPage: FC<IProps> = ({ playlistId, details, items }) => {
     return items.map((_, idx) => createEvent(items[idx], dates[idx], idx));
   }, [playlistId]);
 
-  const showCalendar = () => {
-    setStep(2);
-  };
+  const showCalendar = useCallback(() => setStep(2), []);
 
   return (
     <Layout>
@@ -91,7 +88,7 @@ const PlaylistPage: FC<IProps> = ({ playlistId, details, items }) => {
         </Back>
         <PlaylistDetails items={items} details={details} />
 
-        <Continue ref={step2Ref} onClick={step === 1 ? showCalendar : undefined}>
+        <Continue data-ranbena={1} ref={step2Ref} onClick={step === 1 ? showCalendar : undefined}>
           Step 2: Customize My Schedule
           <DownOutlined />
         </Continue>

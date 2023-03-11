@@ -14,7 +14,7 @@ import {
 } from './styles';
 import { ColoredIcon } from 'src/styles/common';
 
-const Layout: FC = ({ children }) => {
+const Layout: FC<{ children: React.ReactNode }> = ({ children }) => {
   const theme = useTheme();
 
   return (

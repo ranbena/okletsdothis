@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: ${({ theme }) => theme.colors.bg};
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const Header = styled.div`
@@ -24,7 +26,7 @@ export const Header = styled.div`
   }
 `;
 
-export const Heading = styled.a`
+export const Heading = styled.span`
   color: ${({ theme }) => theme.colors.text};
   font-family: Carter One;
   font-size: 24px;
@@ -41,7 +43,6 @@ export const GithubIcon = styled(GithubOutlined)`
 
 export const Content = styled.div`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.bg};
   padding: 62px 20px;
 `;
 

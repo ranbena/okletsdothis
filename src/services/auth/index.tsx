@@ -1,11 +1,11 @@
-import { FC, useState, useEffect, useContext, createContext } from 'react';
+import React, { FC, useState, useEffect, useContext, createContext } from 'react';
 
 import firebase from './firebase';
 import { Auth } from './types';
 
 const authContext = createContext<Auth | null>(null);
 
-export const AuthProvider: FC = ({ children }) => {
+export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const auth = useProvideAuth();
   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 };
