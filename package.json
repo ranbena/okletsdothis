@@ -2,6 +2,7 @@
   "name": "youtube-engage",
   "version": "1.0",
   "private": false,
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -21,7 +22,7 @@
     "react-dom": "^18.2.0",
     "react-loading-skeleton": "^3.2.0",
     "rrule": "^2.6.6",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.3.8"
   },
   "devDependencies": {
     "@swc/plugin-styled-components": "^1.5.46",
